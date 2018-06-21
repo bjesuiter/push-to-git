@@ -1,0 +1,34 @@
+{
+  "name": "deploy-to-git",
+  "version": "1.0.0",
+  "description": "CLI tool to simplify deployment to external git repositories or remote branches with onPush action webhooks",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bjesuiter/deploy-to-git.git"
+  },
+  "keywords": [
+    "cli",
+    "git",
+    "deployment",
+    "continuous-deployment",
+    "continuous-integration",
+    "ci",
+    "cd",
+    "dev-ops"
+  ],
+  "author": "Benjamin Jesuiter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bjesuiter/deploy-to-git/issues"
+  },
+  "homepage": "https://github.com/bjesuiter/deploy-to-git#readme",
+  "dependencies": {
+    "child-process-promise": "^2.2.1",
+    "commander": "^2.15.1",
+    "console-prompt": "^1.0.0"
+  }
+}
