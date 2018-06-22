@@ -5,7 +5,7 @@ const prompt = require('console-prompt');
 const projectVersion = require('project-version');
 
 // This file is used to upload the current branch to the master of the jb test application for mms on resin.io
-// It is needed because there is no cross-plattform way to capture the output of
+// It is needed because there is no cross-platform way to capture the output of
 // a command a to use it in command b from package.json script
 
 program
