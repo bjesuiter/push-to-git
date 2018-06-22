@@ -18,7 +18,7 @@ And if you use this cli tool in npm scripts, you can make these deployments even
 
 ```
 
-  Usage: deploy-to-git [options]
+  Usage: push-to-git [options]
 
   Options:
 
