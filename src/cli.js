@@ -12,14 +12,14 @@ program
     .version(projectVersion, '-v, --version')
     .option('-t --target <target>', 'Git Target to push to, this can be a full git address or a registered git remote name')
     .option('-b --branch <branch>', 'Target branch name to push to, defaults to the same name like input branch')
-    .option('-d --dry-run', 'Emulates the upload - useful for checking input params')
     .option('-m --master', 'Sets the target branch to master per default')
+    .option('-d --dry-run', 'Emulates the upload - useful for checking input params')
     .option('-p --production', 'Sets the production flag which triggers additional checks when uploading')
     .option('-f --force', 'Forces git push');
 
 program.on('--help', () => {
     console.log(
-        `\n General Information: 
+        `\n  General Information: 
         Version: ${projectVersion}
         Purpose: Pushes the current branch to an arbitrary branch 
                  in the same or in another repository for deployment.

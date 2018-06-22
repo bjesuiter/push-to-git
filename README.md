@@ -10,23 +10,25 @@ This is useful for services like resin.io, where pushing code to their git repos
 
 ### Output of deploy-to-git --help 
 ```
-   Usage: deploy-to-git [options]
- 
-   Options:
- 
-     -v, --version           output the version number
-     -u --user <user>        Username to use for pushing, if no git remote is set
-     -a --address <address>  Git Address or remote name to push to, if no git remote is set
-     -r --remote <remote>    Name of the Git Remote to upload to
-     -b --branch <branch>    Branch Name to push to, defaults to the same name like input branch
-     -d --dry-run            Emulates the upload - useful for checking input params
-     -m --master             Sets the branch to master per default
-     -p --production         Sets the production flag which triggers additional checks when uploading
-     -f --force              Forces git push
-     -h, --help              output usage information
- 
+
+  Usage: deploy-to-git [options]
+
+  Options:
+
+    -v, --version         output the version number
+    -t --target <target>  Git Target to push to, this can be a full git address or a registered git remote name
+    -b --branch <branch>  Target branch name to push to, defaults to the same name like input branch
+    -m --master           Sets the target branch to master per default
+    -d --dry-run          Emulates the upload - useful for checking input params
+    -p --production       Sets the production flag which triggers additional checks when uploading
+    -f --force            Forces git push
+    -h, --help            output usage information
+
   General Information: 
-         Version: 1.0.0
+        Version: 1.0.0
+        Purpose: Pushes the current branch to an arbitrary branch 
+                 in the same or in another repository for deployment.
+
 ```
 
 ## Credits
