@@ -32,6 +32,7 @@
   "dependencies": {
     "child-process-promise": "^2.2.1",
     "commander": "^2.15.1",
-    "console-prompt": "^1.0.0"
+    "console-prompt": "^1.0.0",
+    "project-version": "^1.0.0"
   }
 }
