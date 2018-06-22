@@ -1,7 +1,7 @@
 {
   "name": "deploy-to-git",
   "version": "1.0.0",
-  "description": "CLI tool to simplify deployment to external git repositories or remote branches with onPush action webhooks",
+  "description": "CLI tool to simplify deployment to 'external git repositories' or 'remote branches with attached onPush action webhooks'",
   "main": "src/cli.js",
   "bin": {
     "deploy-to-git": "./src/cli.js"
