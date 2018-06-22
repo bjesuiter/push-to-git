@@ -2,7 +2,7 @@
   "name": "deploy-to-git",
   "version": "1.0.0",
   "description": "CLI tool to simplify deployment to external git repositories or remote branches with onPush action webhooks",
-  "main": "src/index.js",
+  "main": "src/cli.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
