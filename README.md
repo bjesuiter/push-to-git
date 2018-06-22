@@ -1,4 +1,4 @@
-# Deploy to Git (CLI)
+# Push to Git (CLI)
 This CLI tool is intended to be able to easily push the current branch to some target git repository or branch for deployment. 
 This is useful for services like resin.io, where pushing code to their git repository is the only way of deploying your app. 
 
@@ -10,7 +10,7 @@ Normally you would have to
 * check back into your working branch to continue work. 
 
 This script simplifies this action (for example pushing your current branch to the testing slot) to  
-`deploy-to-git --target origin --branch testing`  
+`push-to-git --target origin --branch testing`  
 And if you use this cli tool in npm scripts, you can make these deployments even simpler!
 
 
