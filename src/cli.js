@@ -2,12 +2,14 @@
 const program = require('commander');
 const spawn = require('child-process-promise').spawn;
 const prompt = require('console-prompt');
+const projectVersion = require('project-version');
 
 // This file is used to upload the current branch to the master of the jb test application for mms on resin.io
 // It is needed because there is no cross-plattform way to capture the output of
 // a command a to use it in command b from package.json script
 
 program
+    .version(projectVersion, '-v, --version')
     .option('-u --user <user>', 'Username to use for pushing, if no git remote is set')
     .option('-a --address <address>', 'Git Address or remote name to push to, if no git remote is set')
     .option('-r --remote <remote>', 'Name of the Git Remote to upload to')
@@ -16,6 +18,14 @@ program
     .option('-m --master', 'Sets the branch to master per default')
     .option('-p --production', 'Sets the production flag which triggers additional checks when uploading')
     .option('-f --force', 'Forces git push');
+
+program.on('--help', () => {
+    console.log(
+        `\n General Information: 
+        Version: ${projectVersion}
+       `
+    )
+});
 
 program.parse(process.argv);
 
@@ -56,47 +66,47 @@ if (gitRemote === undefined) {
 //git command to get the current branch name: git rev-parse --abbrev-ref HEAD
 spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr']})
     .then((result) => {
-    const currGitBranch = result.stdout.toString().trim();
+        const currGitBranch = result.stdout.toString().trim();
 
-if (!currGitBranch) {
-    console.error('Current git branch is undefined!');
-    process.exit(1);
-}
+        if (!currGitBranch) {
+            console.error('Current git branch is undefined!');
+            process.exit(1);
+        }
 
-if (targetBranch === undefined) {
-    targetBranch = (targetBranchDefault) ? 'master' : currGitBranch;
-}
+        if (targetBranch === undefined) {
+            targetBranch = (targetBranchDefault) ? 'master' : currGitBranch;
+        }
 
-console.log(`Push current git branch [${currGitBranch}] to ${targetBranch} of: \n` +
-    `${(hasGitRemote) ? gitRemote : gitAddress}`);
+        console.log(`Push current git branch [${currGitBranch}] to ${targetBranch} of: \n` +
+            `${(hasGitRemote) ? gitRemote : gitAddress}`);
 
-const gitParams = [
-    'push'
-];
+        const gitParams = [
+            'push'
+        ];
 
-if (force) {
-    gitParams.push('-f');
-}
+        if (force) {
+            gitParams.push('-f');
+        }
 
-gitParams.push(`${(hasGitRemote) ? gitRemote : gitAddress}`);
-gitParams.push(`${currGitBranch}:${targetBranch}`);
+        gitParams.push(`${(hasGitRemote) ? gitRemote : gitAddress}`);
+        gitParams.push(`${currGitBranch}:${targetBranch}`);
 
-console.log(`The exact command is: 
+        console.log(`The exact command is: 
         git ${gitParams.join(' ')}`);
 
-if (isProduction) {
-    return prompt(`CAUTION: You are updating a production branch! Proceed? (yes | NO) `)
-        .then((value) => {
-        if (value === 'yes' || value === 'y') {
-        return runGitPush(gitParams)
-    } else {
-        console.log('Update canceled by user');
-    }
-});
-} else {
-    return runGitPush(gitParams);
-}
-}).catch(function (err) {
+        if (isProduction) {
+            return prompt(`CAUTION: You are updating a production branch! Proceed? (yes | NO) `)
+                .then((value) => {
+                    if (value === 'yes' || value === 'y') {
+                        return runGitPush(gitParams)
+                    } else {
+                        console.log('Update canceled by user');
+                    }
+                });
+        } else {
+            return runGitPush(gitParams);
+        }
+    }).catch(function (err) {
     const error = (err.stderr) ? err.stderr : err;
     console.error('Execution Errors: ', error);
 });
