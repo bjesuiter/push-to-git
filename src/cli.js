@@ -10,12 +10,10 @@ const projectVersion = require('project-version');
 
 program
     .version(projectVersion, '-v, --version')
-    .option('-u --user <user>', 'Username to use for pushing, if no git remote is set')
-    .option('-a --address <address>', 'Git Address or remote name to push to, if no git remote is set')
-    .option('-r --remote <remote>', 'Name of the Git Remote to upload to')
-    .option('-b --branch <branch>', 'Branch Name to push to, defaults to the same name like input branch')
+    .option('-t --target <target>', 'Git Target to push to, this can be a full git address or a registered git remote name')
+    .option('-b --branch <branch>', 'Target branch name to push to, defaults to the same name like input branch')
     .option('-d --dry-run', 'Emulates the upload - useful for checking input params')
-    .option('-m --master', 'Sets the branch to master per default')
+    .option('-m --master', 'Sets the target branch to master per default')
     .option('-p --production', 'Sets the production flag which triggers additional checks when uploading')
     .option('-f --force', 'Forces git push');
 
@@ -23,6 +21,8 @@ program.on('--help', () => {
     console.log(
         `\n General Information: 
         Version: ${projectVersion}
+        Purpose: Pushes the current branch to an arbitrary branch 
+                 in the same or in another repository for deployment.
        `
     )
 });
@@ -34,33 +34,19 @@ if (!process.argv.slice(2).length) {
     program.outputHelp();
     process.exit(0);
 }
-//either normal user@url
-const user = program.user;
-const address = program.address;
-// or git remote
-const gitRemote = program.remote;
-let targetBranch = program.branch;
+
+// git address like or git remote name
+// Format: protocol://user@git-repo.address/path.git OR remote-name (like "origin")
+const gitTarget = program.target;
+let gitTargetBranch = program.branch;
+const targetBranchDefault = (program.master) ? program.master : false;
 const force = program.force;
 const dryRun = program.dryRun;
-const targetBranchDefault = (program.master) ? program.master : false;
 const isProduction = program.production;
-let hasGitRemote = false;
-let gitAddress = undefined;
 
-if (gitRemote === undefined) {
-    if (user === undefined) {
-        console.error('Git user for upload is undefined!');
-        process.exit(1);
-    }
-
-    if (address === undefined) {
-        console.error('Git address or remote for uploading is undefined!');
-        process.exit(1);
-    }
-
-    gitAddress = `${user}@${address}`
-} else {
-    hasGitRemote = true
+if (gitTarget === undefined) {
+    console.error('Git target address or remote name is missing');
+    process.exit(1);
 }
 
 //git command to get the current branch name: git rev-parse --abbrev-ref HEAD
@@ -70,15 +56,15 @@ spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr
 
         if (!currGitBranch) {
             console.error('Current git branch is undefined!');
-            process.exit(1);
+            process.exit(2);
         }
 
-        if (targetBranch === undefined) {
-            targetBranch = (targetBranchDefault) ? 'master' : currGitBranch;
+        if (gitTargetBranch === undefined) {
+            gitTargetBranch = (targetBranchDefault) ? 'master' : currGitBranch;
         }
 
-        console.log(`Push current git branch [${currGitBranch}] to ${targetBranch} of: \n` +
-            `${(hasGitRemote) ? gitRemote : gitAddress}`);
+        console.log(`Push current git branch [${currGitBranch}] to ${gitTargetBranch} of: \n` +
+            `${gitTarget}`);
 
         const gitParams = [
             'push'
@@ -88,8 +74,8 @@ spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr
             gitParams.push('-f');
         }
 
-        gitParams.push(`${(hasGitRemote) ? gitRemote : gitAddress}`);
-        gitParams.push(`${currGitBranch}:${targetBranch}`);
+        gitParams.push(`${gitTarget}`);
+        gitParams.push(`${currGitBranch}:${gitTargetBranch}`);
 
         console.log(`The exact command is: 
         git ${gitParams.join(' ')}`);
