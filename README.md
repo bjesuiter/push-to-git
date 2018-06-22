@@ -2,13 +2,20 @@
 This CLI tool is intended to be able to easily push the current branch to some target git repository or branch for deployment. 
 This is useful for services like resin.io, where pushing code to their git repository is the only way of deploying your app. 
 
+This could also be used for DevOps situations where you have 3 branches 'production', 'staging', and 'testing' for example. 
+Normally you would have to 
+* check out the desired deploy target branch, 
+* merge your current working branch / feature / bugfix / etc. into it, 
+* push the deploy target branch and 
+* check back into your working branch to continue work. 
+
+This script simplifies this action (for example pushing your current branch to the testing slot) to  
+`deploy-to-git --target origin --branch testing`  
+And if you use this cli tool in npm scripts, you can make these deployments even simpler!
 
 
 ## Usage
 
-- 2 Modes: same-repo mode (with remote and target branch) and external repo mode (with repo address and login user)
-
-### Output of deploy-to-git --help 
 ```
 
   Usage: deploy-to-git [options]
