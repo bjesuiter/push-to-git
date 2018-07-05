@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const program = require('commander');
-const spawn = require('child-process-promise').spawn;
+const {spawn} = require('child-process-promise');
 const prompt = require('console-prompt');
 const projectVersion = require('project-version');
 
