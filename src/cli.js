@@ -30,12 +30,12 @@ program.on('--help', () => {
 program.parse(process.argv);
 
 if (!process.argv.slice(2).length) {
-	//display the help text in red on the console
+	// Display the help text in red on the console
 	program.outputHelp();
 	process.exit(0);
 }
 
-// git address like or git remote name
+// Git address like or git remote name
 // Format: protocol://user@git-repo.address/path.git OR remote-name (like "origin")
 const gitTarget = program.target;
 let gitTargetBranch = program.branch;
@@ -49,7 +49,7 @@ if (gitTarget === undefined) {
 	process.exit(1);
 }
 
-//git command to get the current branch name: git rev-parse --abbrev-ref HEAD
+// Git command to get the current branch name: git rev-parse --abbrev-ref HEAD
 spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr']})
 	.then((result) => {
 		const currGitBranch = result.stdout.toString().trim();
@@ -85,7 +85,7 @@ spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr
 				.then((value) => {
 					if (value === 'yes' || value === 'y')
 						return runGitPush(gitParams);
-					
+
 					console.log('Update canceled by user');
 
 				});
