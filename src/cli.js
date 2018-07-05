@@ -24,12 +24,12 @@ program.on('--help', () => {
         Purpose: Pushes the current branch to an arbitrary branch 
                  in the same or in another repository for deployment.
        `
-	)
+	);
 });
 
 program.parse(process.argv);
 
-if (!process.argv.slice(2).length) {
+if (process.argv.slice(2).length === 0) {
 	// Display the help text in red on the console
 	program.outputHelp();
 	process.exit(0);
@@ -49,9 +49,24 @@ if (gitTarget === undefined) {
 	process.exit(1);
 }
 
+function runGitPush(gitParams) {
+	if (dryRun) {
+		console.log('Dry Run finished');
+		process.exit(0);
+	}
+
+	const gitPromise = spawn('git', gitParams);
+	const {childProcess} = gitPromise;
+
+	childProcess.stdout.pipe(process.stdout);
+	childProcess.stderr.pipe(process.stderr);
+
+	return gitPromise;
+}
+
 // Git command to get the current branch name: git rev-parse --abbrev-ref HEAD
 spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr']})
-	.then((result) => {
+	.then(result => {
 		const currGitBranch = result.stdout.toString().trim();
 
 		if (!currGitBranch) {
@@ -82,32 +97,17 @@ spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr
 
 		if (isProduction) {
 			return prompt(`CAUTION: You are updating a production branch! Proceed? (yes | NO) `)
-				.then((value) => {
-					if (value === 'yes' || value === 'y')
+				.then(value => {
+					if (value === 'yes' || value === 'y') {
 						return runGitPush(gitParams);
-
+					}
 					console.log('Update canceled by user');
-
 				});
-		} else {
-			return runGitPush(gitParams);
 		}
-	}).catch(function (err) {
-	const error = (err.stderr) ? err.stderr : err;
-	console.error('Execution Errors: ', error);
-});
 
-function runGitPush(gitParams) {
-	if (dryRun) {
-		console.log('Dry Run finished');
-		process.exit(0);
-	}
-
-	const gitPromise = spawn('git', gitParams);
-	const {childProcess} = gitPromise;
-
-	childProcess.stdout.pipe(process.stdout);
-	childProcess.stderr.pipe(process.stderr);
-
-	return gitPromise;
-}
+		return runGitPush(gitParams);
+	})
+	.catch(err => {
+		const error = (err.stderr) ? err.stderr : err;
+		console.error('Execution Errors: ', error);
+	});
