@@ -38,7 +38,10 @@
 	},
 	"devDependencies": {
 		"ava": "^0.25.0",
-		"xo": "^0.21.1"
+		"xo": "^0.21.1",
+		"codecov": "^3.0.2",
+		"import-fresh": "^2.0.0",
+		"nyc": "^11.0.3"
 	},
 	"xo": {
 		"space": false,
