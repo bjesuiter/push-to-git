@@ -41,7 +41,7 @@
 		"xo": "^0.21.1"
 	},
 	"xo": {
-		"space": true,
+		"space": false,
 		"rules": {
 			"prefer-destructuring": [
 				"error",
