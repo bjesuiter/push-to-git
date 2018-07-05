@@ -7,7 +7,7 @@
     "push-to-git": "./src/cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "xo && ava"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,8 @@
     "continuous-integration",
     "ci",
     "cd",
-    "dev-ops"
+    "dev-ops",
+    "project"
   ],
   "author": "Benjamin Jesuiter",
   "license": "ISC",
@@ -34,5 +35,9 @@
     "commander": "^2.15.1",
     "console-prompt": "^1.0.0",
     "project-version": "^1.0.0"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "xo": "^0.21.1"
   }
 }
