@@ -1,13 +1,13 @@
 {
 	"name": "push-to-git",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "CLI tool to simplify deployment to 'external git repositories' or 'remote branches with attached onPush action webhooks'",
 	"main": "src/cli.js",
 	"bin": {
 		"push-to-git": "./src/cli.js"
 	},
 	"scripts": {
-		"test": "xo", 
+		"test": "xo",
 		"deploy": "node ./src/cli.js -- -m -t origin"
 	},
 	"repository": {
