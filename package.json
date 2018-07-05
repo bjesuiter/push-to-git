@@ -1,43 +1,65 @@
 {
-  "name": "push-to-git",
-  "version": "1.0.1",
-  "description": "CLI tool to simplify deployment to 'external git repositories' or 'remote branches with attached onPush action webhooks'",
-  "main": "src/cli.js",
-  "bin": {
-    "push-to-git": "./src/cli.js"
-  },
-  "scripts": {
-    "test": "xo && ava"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bjesuiter/deploy-to-git.git"
-  },
-  "keywords": [
-    "cli",
-    "git",
-    "deployment",
-    "continuous-deployment",
-    "continuous-integration",
-    "ci",
-    "cd",
-    "dev-ops",
-    "project"
-  ],
-  "author": "Benjamin Jesuiter",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/bjesuiter/deploy-to-git/issues"
-  },
-  "homepage": "https://github.com/bjesuiter/deploy-to-git#readme",
-  "dependencies": {
-    "child-process-promise": "^2.2.1",
-    "commander": "^2.15.1",
-    "console-prompt": "^1.0.0",
-    "project-version": "^1.0.0"
-  },
-  "devDependencies": {
-    "ava": "^0.25.0",
-    "xo": "^0.21.1"
-  }
+	"name": "push-to-git",
+	"version": "1.0.1",
+	"description": "CLI tool to simplify deployment to 'external git repositories' or 'remote branches with attached onPush action webhooks'",
+	"main": "src/cli.js",
+	"bin": {
+		"push-to-git": "./src/cli.js"
+	},
+	"scripts": {
+		"test": "xo && ava"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bjesuiter/deploy-to-git.git"
+	},
+	"keywords": [
+		"cli",
+		"git",
+		"deployment",
+		"continuous-deployment",
+		"continuous-integration",
+		"ci",
+		"cd",
+		"dev-ops",
+		"project"
+	],
+	"author": "Benjamin Jesuiter",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/bjesuiter/deploy-to-git/issues"
+	},
+	"homepage": "https://github.com/bjesuiter/deploy-to-git#readme",
+	"dependencies": {
+		"child-process-promise": "^2.2.1",
+		"commander": "^2.15.1",
+		"console-prompt": "^1.0.0",
+		"project-version": "^1.0.0"
+	},
+	"devDependencies": {
+		"ava": "^0.25.0",
+		"xo": "^0.21.1"
+	},
+	"xo": {
+		"space": true,
+		"rules": {
+			"prefer-destructuring": [
+				"error",
+				{
+					"array": false,
+					"object": false
+				},
+				{
+					"enforceForRenamedProperties": false
+				}
+			],
+			"no-trailing-spaces": [
+				"error",
+				{
+					"skipBlankLines": true,
+					"skipComments": true
+				}
+			]
+		}
+	}
 }
