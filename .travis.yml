@@ -1,0 +1,12 @@
+sudo: false
+language: node_js
+node_js:
+  - '10'
+  - '9'
+  - '8'
+  - '7'
+  - '6'
+before_install: rm package-lock.json
+cache:
+  directories:
+  - node_modules
