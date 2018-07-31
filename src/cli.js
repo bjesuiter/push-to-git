@@ -12,6 +12,7 @@ program
 	.version(projectVersion, '-v, --version')
 	.option('-t --target <target>', 'Git Target to push to, this can be a full git address or a registered git remote name')
 	.option('-b --branch <branch>', 'Target branch name to push to, defaults to the same name like input branch')
+	.option('-e --extra <extra>', 'A string value with extra git options which should be used')
 	.option('-m --master', 'Sets the target branch to master per default')
 	.option('-d --dry-run', 'Emulates the upload - useful for checking input params')
 	.option('-p --production', 'Sets the production flag which triggers additional checks when uploading')
@@ -40,6 +41,7 @@ if (process.argv.slice(2).length === 0) {
 const gitTarget = program.target;
 let gitTargetBranch = program.branch;
 const targetBranchDefault = (program.master) ? program.master : false;
+const extraOptions = program.extra;
 const force = program.force;
 const dryRun = program.dryRun;
 const isProduction = program.production;
@@ -87,6 +89,10 @@ spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr
 
 		if (force) {
 			gitParams.push('-f');
+		}
+		
+		if  (extraOptions !== undefined) {
+			gitParams.push(extraOptions)
 		}
 
 		gitParams.push(`${gitTarget}`);
