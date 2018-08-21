@@ -90,9 +90,9 @@ spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr
 		if (force) {
 			gitParams.push('-f');
 		}
-		
-		if  (extraOptions !== undefined) {
-			gitParams.push(extraOptions)
+
+		if (extraOptions !== undefined) {
+			gitParams.push(extraOptions);
 		}
 
 		gitParams.push(`${gitTarget}`);
