@@ -5,6 +5,9 @@ test.js
 .travis.yml
 codecov.yml
 
+.idea
+*.iml
+
 #editor settings
 .editorconfig
 
