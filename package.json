@@ -33,9 +33,9 @@
 	"homepage": "https://github.com/bjesuiter/deploy-to-git#readme",
 	"dependencies": {
 		"child-process-promise": "^2.2.1",
-		"commander": "^2.15.1",
+		"commander": "^2.20.0",
 		"console-prompt": "^1.0.0",
-		"project-version": "^1.0.0"
+		"project-version": "^1.2.0"
 	},
 	"devDependencies": {
 		"xo": "^0.24.0"
