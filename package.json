@@ -43,6 +43,13 @@
 	"xo": {
 		"space": false,
 		"rules": {
+			"quotes": [
+				"error",
+				"single",
+				{
+					"allowTemplateLiterals": true
+				}
+			],
 			"prefer-destructuring": [
 				"error",
 				{
