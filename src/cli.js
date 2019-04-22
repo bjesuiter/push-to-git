@@ -107,13 +107,14 @@ spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr
 					if (value === 'yes' || value === 'y') {
 						return runGitPush(gitParams);
 					}
+
 					console.log('Update canceled by user');
 				});
 		}
 
 		return runGitPush(gitParams);
 	})
-	.catch(err => {
-		const error = (err.stderr) ? err.stderr : err;
-		console.error('Execution Errors: ', error);
+	.catch(error => {
+		const err = (error.stderr) ? error.stderr : error;
+		console.error('Execution Errors:', err);
 	});
