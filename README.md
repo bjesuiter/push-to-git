@@ -1,4 +1,7 @@
 # Push to Git (CLI)
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/bjesuiter/push-to-git.svg)](https://greenkeeper.io/)
+
 This CLI tool is intended to be able to easily push the current branch to some target git repository or branch for deployment. 
 This is useful for services like resin.io, where pushing code to their git repository is the only way of deploying your app. 
 
