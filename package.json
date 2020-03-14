@@ -40,7 +40,7 @@
 	],
 	"dependencies": {
 		"child-process-promise": "^2.2.1",
-		"commander": "^4.0.1",
+		"commander": "^5.0.0",
 		"console-prompt": "^1.0.0",
 		"project-version": "^1.2.0"
 	},
