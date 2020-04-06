@@ -51,13 +51,13 @@ if (gitTarget === undefined) {
 	process.exit(1);
 }
 
-function runGitPush(gitParams) {
+function runGitPush(gitParameters) {
 	if (dryRun) {
 		console.log('Dry Run finished');
 		process.exit(0);
 	}
 
-	const gitPromise = spawn('git', gitParams);
+	const gitPromise = spawn('git', gitParameters);
 	const {childProcess} = gitPromise;
 
 	childProcess.stdout.pipe(process.stdout);
@@ -83,36 +83,36 @@ spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr
 		console.log(`Push current git branch [${currGitBranch}] to ${gitTargetBranch} of: \n` +
 			`${gitTarget}`);
 
-		const gitParams = [
+		const gitParameters = [
 			'push'
 		];
 
 		if (force) {
-			gitParams.push('-f');
+			gitParameters.push('-f');
 		}
 
 		if (extraOptions !== undefined) {
-			gitParams.push(extraOptions);
+			gitParameters.push(extraOptions);
 		}
 
-		gitParams.push(`${gitTarget}`);
-		gitParams.push(`${currGitBranch}:${gitTargetBranch}`);
+		gitParameters.push(`${gitTarget}`);
+		gitParameters.push(`${currGitBranch}:${gitTargetBranch}`);
 
 		console.log(`The exact command is: 
-        git ${gitParams.join(' ')}`);
+        git ${gitParameters.join(' ')}`);
 
 		if (isProduction) {
 			return prompt(`CAUTION: You are updating a production branch! Proceed? (yes | NO) `)
 				.then(value => {
 					if (value === 'yes' || value === 'y') {
-						return runGitPush(gitParams);
+						return runGitPush(gitParameters);
 					}
 
 					console.log('Update canceled by user');
 				});
 		}
 
-		return runGitPush(gitParams);
+		return runGitPush(gitParameters);
 	})
 	.catch(error => {
 		const err = (error.stderr) ? error.stderr : error;
