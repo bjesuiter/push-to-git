@@ -4,11 +4,11 @@
 	"description": "CLI tool to simplify deployment to 'external git repositories' or 'remote branches with attached onPush action webhooks'",
 	"main": "src/cli.js",
 	"bin": {
-		"push-to-git": "./src/cli.js"
+		"push-to-git": "index.js"
 	},
 	"scripts": {
 		"test": "xo",
-		"start": "./src/cli.js"
+		"start": "./index.js"
 	},
 	"repository": {
 		"type": "git",
@@ -46,6 +46,7 @@
 	},
 	"devDependencies": {
 		"ava": "^3.7.0",
+		"esm": "^3.2.25",
 		"xo": "^0.29.1"
 	},
 	"xo": {
