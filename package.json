@@ -45,8 +45,8 @@
 		"project-version": "^1.2.0"
 	},
 	"devDependencies": {
-		"ava": "^3.6.0",
-		"xo": "^0.28.3"
+		"ava": "^3.7.0",
+		"xo": "^0.29.1"
 	},
 	"xo": {
 		"space": false,
