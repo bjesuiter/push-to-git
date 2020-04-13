@@ -2,6 +2,7 @@ import program from 'commander';
 import {spawn} from 'child-process-promise';
 import prompt from 'console-prompt';
 import projectVersion from 'project-version';
+import {getCurrentBranchName} from './git-adapter';
 
 // This file is used to upload the current branch to the master of the jb test application for mms on resin.io
 // It is needed because there is no cross-platform way to capture the output of
@@ -69,9 +70,7 @@ function runGitPush(gitParameters) {
 }
 
 // Git command to get the current branch name: git rev-parse --abbrev-ref HEAD
-spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {
-	capture: ['stdout', 'stderr'],
-})
+getCurrentBranchName()
 	.then(result => {
 		const currGitBranch = result.stdout.toString().trim();
 
