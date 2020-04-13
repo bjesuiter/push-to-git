@@ -1,8 +1,7 @@
-#!/usr/bin/env node
-const program = require('commander');
-const {spawn} = require('child-process-promise');
-const prompt = require('console-prompt');
-const projectVersion = require('project-version');
+import program from 'commander';
+import {spawn} from 'child-process-promise';
+import prompt from 'console-prompt';
+import projectVersion from 'project-version';
 
 // This file is used to upload the current branch to the master of the jb test application for mms on resin.io
 // It is needed because there is no cross-platform way to capture the output of
@@ -10,7 +9,10 @@ const projectVersion = require('project-version');
 
 program
 	.version(projectVersion, '-v, --version')
-	.option('-t --target <target>', 'Git Target to push to, this can be a full git address or a registered git remote name')
+	.option(
+		'-t --target <target>',
+		'Git Target to push to, this can be a full git address or a registered git remote name'
+	)
 	.option('-b --branch <branch>', 'Target branch name to push to, defaults to the same name like input branch')
 	.option('-e --extra <extra>', 'A string value with extra git options which should be used')
 	.option('-m --master', 'Sets the target branch to master per default')
@@ -40,7 +42,7 @@ if (process.argv.slice(2).length === 0) {
 // Format: protocol://user@git-repo.address/path.git OR remote-name (like "origin")
 const gitTarget = program.target;
 let gitTargetBranch = program.branch;
-const targetBranchDefault = (program.master) ? program.master : false;
+const targetBranchDefault = program.master ? program.master : false;
 const extraOptions = program.extra;
 const force = program.force;
 const dryRun = program.dryRun;
@@ -67,7 +69,9 @@ function runGitPush(gitParameters) {
 }
 
 // Git command to get the current branch name: git rev-parse --abbrev-ref HEAD
-spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr']})
+spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {
+	capture: ['stdout', 'stderr'],
+})
 	.then(result => {
 		const currGitBranch = result.stdout.toString().trim();
 
@@ -77,15 +81,12 @@ spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr
 		}
 
 		if (gitTargetBranch === undefined) {
-			gitTargetBranch = (targetBranchDefault) ? 'master' : currGitBranch;
+			gitTargetBranch = targetBranchDefault ? 'master' : currGitBranch;
 		}
 
-		console.log(`Push current git branch [${currGitBranch}] to ${gitTargetBranch} of: \n` +
-			`${gitTarget}`);
+		console.log(`Push current git branch [${currGitBranch}] to ${gitTargetBranch} of: \n` + `${gitTarget}`);
 
-		const gitParameters = [
-			'push'
-		];
+		const gitParameters = ['push'];
 
 		if (force) {
 			gitParameters.push('-f');
@@ -102,19 +103,18 @@ spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {capture: ['stdout', 'stderr
         git ${gitParameters.join(' ')}`);
 
 		if (isProduction) {
-			return prompt(`CAUTION: You are updating a production branch! Proceed? (yes | NO) `)
-				.then(value => {
-					if (value === 'yes' || value === 'y') {
-						return runGitPush(gitParameters);
-					}
+			return prompt(`CAUTION: You are updating a production branch! Proceed? (yes | NO) `).then(value => {
+				if (value === 'yes' || value === 'y') {
+					return runGitPush(gitParameters);
+				}
 
-					console.log('Update canceled by user');
-				});
+				console.log('Update canceled by user');
+			});
 		}
 
 		return runGitPush(gitParameters);
 	})
 	.catch(error => {
-		const err = (error.stderr) ? error.stderr : error;
+		const err = error.stderr ? error.stderr : error;
 		console.error('Execution Errors:', err);
 	});
