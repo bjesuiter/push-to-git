@@ -33,10 +33,11 @@
 	"homepage": "https://github.com/bjesuiter/deploy-to-git#readme",
 	"files": [
 		"package.json",
-		"CHANGELOG.md",
+		"index.js",
+		"src",
 		"LICENSE",
 		"README.md",
-		"src"
+		"CHANGELOG.md"
 	],
 	"dependencies": {
 		"child-process-promise": "^2.2.1",
