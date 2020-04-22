@@ -35,6 +35,8 @@ program.parse(process.argv);
 if (process.argv.slice(2).length === 0) {
 	// Display the help text in red on the console
 	program.outputHelp();
+
+	// eslint-disable-next-line unicorn/no-process-exit
 	process.exit(0);
 }
 
