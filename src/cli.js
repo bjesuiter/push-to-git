@@ -52,12 +52,15 @@ const isProduction = program.production;
 
 if (gitTarget === undefined) {
 	console.error('Git target address or remote name is missing');
+
+	// eslint-disable-next-line unicorn/no-process-exit
 	process.exit(1);
 }
 
 function runGitPush(gitParameters) {
 	if (dryRun) {
 		console.log('Dry Run finished');
+		// eslint-disable-next-line unicorn/no-process-exit
 		process.exit(0);
 	}
 
@@ -72,13 +75,15 @@ function runGitPush(gitParameters) {
 
 // Git command to get the current branch name: git rev-parse --abbrev-ref HEAD
 spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {
-	capture: ['stdout', 'stderr'],
+	capture: ['stdout', 'stderr']
 })
 	.then(result => {
 		const currGitBranch = result.stdout.toString().trim();
 
 		if (!currGitBranch) {
 			console.error('Current git branch is undefined!');
+
+			// eslint-disable-next-line unicorn/no-process-exit
 			process.exit(2);
 		}
 
@@ -86,7 +91,7 @@ spawn('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {
 			gitTargetBranch = targetBranchDefault ? 'master' : currGitBranch;
 		}
 
-		console.log(`Push current git branch [${currGitBranch}] to ${gitTargetBranch} of: \n` + `${gitTarget}`);
+		console.log(`Push current git branch [${currGitBranch}] to ${gitTargetBranch} of: \n ${gitTarget}`);
 
 		const gitParameters = ['push'];
 
