@@ -2,13 +2,13 @@
 	"name": "push-to-git",
 	"version": "1.1.4",
 	"description": "CLI tool to simplify deployment to 'external git repositories' or 'remote branches with attached onPush action webhooks'",
-	"main": "src/cli.js",
+	"main": "./src/index.js",
 	"bin": {
-		"push-to-git": "index.js"
+		"push-to-git": "./src/index.js"
 	},
 	"scripts": {
 		"test": "xo",
-		"start": "./index.js"
+		"start": "./src/index.js"
 	},
 	"repository": {
 		"type": "git",
@@ -33,7 +33,6 @@
 	"homepage": "https://github.com/bjesuiter/deploy-to-git#readme",
 	"files": [
 		"package.json",
-		"index.js",
 		"src",
 		"LICENSE",
 		"README.md",
