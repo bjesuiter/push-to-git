@@ -45,9 +45,9 @@
 		"project-version": "^1.2.1"
 	},
 	"devDependencies": {
-		"ava": "^3.7.0",
+		"ava": "^5.2.0",
 		"esm": "^3.2.25",
-		"xo": "^0.29.1"
+		"xo": "^0.53.1"
 	},
 	"xo": {
 		"space": false,
